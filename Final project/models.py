@@ -50,14 +50,18 @@ class Spot(arcade.Sprite):
         self.spot_list[3][1] = self._get_center_y() + self.diagonal *  math.sin(math.radians(340+self.angle))
            
     def angle_car(self):
-        if self.up_down == True :
+        if self.up_down == True and self.v != 0 and self.v != 0.1 and self.v != -0.1:
             self.angle += self.v_angle
 
     def update(self, delta):
         self.move()
         self.angle_car()
         if self.is_hit_mid_obs() == True:
-            self.v = 0
+            if self.v >= 1:
+                self.v = 0.1
+            else:
+                self.v = -0.1
+        
             
     def is_hit_mid_obs(self):
         for spot in self.spot_list:
